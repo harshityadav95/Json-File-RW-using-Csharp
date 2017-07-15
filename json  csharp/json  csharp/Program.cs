@@ -35,11 +35,7 @@ namespace json__csharp
         {
             // Deserializing the JSON File  
             Console.WriteLine("hELLO WORLD  ");
-            string v = "x";
-            string b = "y";
-            string c = v + b;
-            Console.WriteLine(c);
-
+            
 
             // creating json file if path does not exit already  
 
@@ -48,14 +44,20 @@ namespace json__csharp
             if (!File.Exists(path))
             {
                 File.Create(path);
-               
                 
+                TextWriter tw = new StreamWriter(path);
+                tw.Close();
+
+
             }
+             
+           // end of rough code  
+
 
 
             // read the files into a string and deserialize JSON to a type  
             Console.WriteLine("Reading Data .json");
-            string jsonString = File.ReadAllText("data.json");
+            string jsonString = File.ReadAllText(path);
             List<item> myList = JsonConvert.DeserializeObject<List<item>>(jsonString);
 
             if (myList == null)
@@ -107,6 +109,7 @@ namespace json__csharp
 
                        break;
 
+
                     default:
                         Console.WriteLine("Incorrect Command , try Again");
 
@@ -116,13 +119,11 @@ namespace json__csharp
                 }
                 Console.WriteLine("Rewriting  data.json");
                 string data = JsonConvert.SerializeObject(myList);
-                File.WriteAllText("data.json",data);
+                File.WriteAllText(path,data);
 
-                Console.ReadKey();
+                
 
             }
-
-
 
             Console.ReadLine();
 
